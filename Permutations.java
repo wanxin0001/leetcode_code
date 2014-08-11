@@ -1,4 +1,5 @@
-/*Permutations Total Accepted: 12836 Total Submissions: 41675 My Submissions
+/*
+ Permutations Total Accepted: 12836 Total Submissions: 41675 My Submissions
 Given a collection of numbers, return all possible permutations.
 
 For example,
