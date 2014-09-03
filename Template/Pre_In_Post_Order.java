@@ -39,7 +39,7 @@ public class Solution {
 			if (s.isEmpty()) {
 				return rst;
 			}
-			current = current.pop();
+			current = s.pop();
 			rst.add(current.val);
 			current = current.right;
 		}
