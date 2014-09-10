@@ -1,6 +1,6 @@
 public class Solution {
     public static void main(String[] argv) {
-        String s = ".";
+        String s = "1.1";
 
         Solution obj = new Solution();
         if(obj.isNumber(s)) {
@@ -46,7 +46,7 @@ public class Solution {
     
     private boolean isDecimal(String s) {
 
-        String[] items = s.split("\\.", -1); 
+        String[] items = s.split("\\e", -1); 
         System.out.println(s);
         System.out.println(items.length);
          //System.out.println(items[0]);
