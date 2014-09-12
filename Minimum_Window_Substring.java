@@ -1,10 +1,18 @@
-import java.util.*;
+/*
+Minimum Window Substring Total Accepted: 13488 Total Submissions: 74913 My Submissions
+Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
 
+For example,
+S = "ADOBECODEBANC"
+T = "ABC"
+Minimum window is "BANC".
+
+Note:
+If there is no such window in S that covers all characters in T, return the emtpy string "".
+
+If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
+*/
 public class Solution {
-    public static void main(String[] str) {
-        Solution obj = new Solution();
-        obj.minWindow("a", "a");
-    }
     public String minWindow(String S, String T) {
         if (S == null || S.length() == 0) {
             return S;
@@ -33,14 +41,14 @@ public class Solution {
             if (!stringMap.containsKey(c)) {
                 continue;
             }
-            System.out.println("11");
+            
             if (newMap.containsKey(c)) {
                 newMap.put(S.charAt(i), newMap.get(S.charAt(i)) + 1);
             } else {
                 newMap.put(S.charAt(i), 1);
             }
             
-            if (newMap.get(c) <= stringMap.get(c)) {
+            if (newMap.get(c) <= stringMap.get(c)) { // it should be <= because we have alreay added it into newMap
                 counter++;
             }
             
@@ -60,12 +68,11 @@ public class Solution {
                     
                     break;
                 }
-                System.out.println("222");
+                
                 if (minWindows.length() == 0) {
                     minWindows = S.substring(leftBound, i + 1);
                 } else if (i + 1 - leftBound < minWindows.length()) {
                     minWindows = S.substring(leftBound, i + 1);
-
                 }
             }
             
