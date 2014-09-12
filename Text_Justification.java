@@ -1,13 +1,27 @@
-import java.util.*;
+/*
+Text Justification Total Accepted: 8582 Total Submissions: 61061 My Submissions
+Given an array of words and a length L, format the text such that each line has exactly L characters and is fully (left and right) justified.
+
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary so that each line has exactly L characters.
+
+Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line do not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+
+For the last line of text, it should be left justified and no extra space is inserted between words.
+
+For example,
+words: ["This", "is", "an", "example", "of", "text", "justification."]
+L: 16.
+
+Return the formatted lines as:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+Note: Each word is guaranteed not to exceed L in length.
+*/
 
 public class Solution {
-    public static void main(String[] str) {
-        Solution obj = new Solution();
-        String[] words = {""};
-
-
-        obj.fullJustify(words, 2);
-    }
     public List<String> fullJustify(String[] words, int L) {
         List<String> result = new ArrayList<String>();
         if (words == null || words.length == 0 || L == 0) {
@@ -26,9 +40,14 @@ public class Solution {
         int len = 0;
         ArrayList<String> tmp = new ArrayList<String>();
         for (int i = 0; i < words.length; i++) {
-            len += words[i].length();
+            if (len == 0) {
+                len += words[i].length();
+            } else {
+                len += words[i].length() + 1;
+            }
             if (len <= L) {
                 tmp.add(words[i]);
+                
             } else {
                 i--;
                 wordsList.add(new ArrayList<String>(tmp));
@@ -43,10 +62,19 @@ public class Solution {
     }
     
     private void print(List<String> result, ArrayList<ArrayList<String>> wordsList, int L) {
-        for (int i = 0; i < wordsList.size(); i++) {
+        for (int i = 0; i < wordsList.size() - 1; i++) {
             printLine(result, wordsList.get(i), L);
         }
+        String line = "";
+        for (int i = 0; i < wordsList.get(wordsList.size() - 1).size(); i++) {
+            line += wordsList.get(wordsList.size() - 1).get(i) + " ";
+        } 
         
+        int size = L - line.length();
+        for (int i = 0; i < size; i++) {
+            line += " ";
+        }
+        result.add(line.substring(0, L));
     }
     
     private void printLine(List<String> result, ArrayList<String> words, int L) {
@@ -62,11 +90,11 @@ public class Solution {
         
         if (size == 1) {
             resultWord = words.get(0);
-            System.out.println(resultWord.length());
-            for(int i = 0; i < L - resultWord.length(); i++) {
+            int size1 = L - resultWord.length();
+            for(int i = 0; i < size1; i++) {
                 resultWord += " ";
             }
-            System.out.println(resultWord+"11");
+            
             result.add(resultWord);
         } else {
             int interval = (L - length) / (size - 1);
