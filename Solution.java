@@ -1,76 +1,86 @@
 import java.util.*;
-
 public class Solution {
     public static void main(String[] str) {
         Solution obj = new Solution();
-        obj.minWindow("a", "a");
+        int[] array = {0,1,0,1};
+        System.out.println(obj.largestRectangleArea(array));
     }
-    public String minWindow(String S, String T) {
-        if (S == null || S.length() == 0) {
-            return S;
+    public int largestRectangleArea(int[] height) {
+        if (height == null || height.length == 0) {
+            return 0;
         }
         
-        if (T == null || T.length() == 0) {
-            return "";
-        }
+        int[] left = new int[height.length];
+        int[] right = new int[height.length];
+        left[0] = 0;
         
-        HashMap<Character, Integer> stringMap = new HashMap<Character, Integer>();
-        for (int i = 0; i < T.length(); i++) {
-            if (stringMap.containsKey(T.charAt(i))) {
-                stringMap.put(T.charAt(i), stringMap.get(T.charAt(i)) + 1);
-            } else {
-                stringMap.put(T.charAt(i), 1);
-            }
-        }
-        
-        HashMap<Character, Integer> newMap = new HashMap<Character, Integer>();
-        int counter = 0;
-        int leftBound = 0;
-        String minWindows = "";
-        
-        for (int i = 0; i < S.length(); i++) {
-            Character c = S.charAt(i);
-            if (!stringMap.containsKey(c)) {
-                continue;
-            }
-            System.out.println("11");
-            if (newMap.containsKey(c)) {
-                newMap.put(S.charAt(i), newMap.get(S.charAt(i)) + 1);
-            } else {
-                newMap.put(S.charAt(i), 1);
-            }
-            
-            if (newMap.get(c) <= stringMap.get(c)) {
-                counter++;
-            }
-            
-            if (counter == T.length()) {
-                while (leftBound < i + 1) {
-                    Character ch = S.charAt(leftBound);
-                    if (!newMap.containsKey(ch)) {
-                        leftBound++;
-                        continue;
-                    }
+        right[right.length - 1] = right.length - 1;
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(0);
+        for (int i = 1; i < left.length; i++) {
+            while (!stack.isEmpty()) {
+                int index = stack.peek();
+                if (height[index] < height[i]) {
+                    left[i] = index + 1;
                     
-                    if (newMap.get(ch) > stringMap.get(ch)) {
-                        leftBound++;
-                        newMap.put(ch, newMap.get(ch) - 1);
-                        continue;
-                    }
+                        stack.push(i);
                     
                     break;
+                } else if (height[index] == height[i]) {
+                    left[i] = index;
+                    break;
                 }
-                System.out.println("222");
-                if (minWindows.length() == 0) {
-                    minWindows = S.substring(leftBound, i + 1);
-                } else if (i + 1 - leftBound < minWindows.length()) {
-                    minWindows = S.substring(leftBound, i + 1);
-
+                else
+                {
+                    stack.pop();
+                    continue;
                 }
+             }
+            if (stack.isEmpty()) {
+                left[i] = i;
+                stack.push(i);
+                
+            }
+        }
+        
+        stack.clear();
+        stack.push(right.length - 1);
+        for (int i = right.length - 2; i >= 0; i--) {
+            while (!stack.isEmpty()) {
+                int index = stack.peek();
+                if (height[index] < height[i]) {
+                    right[i] = index - 1;
+                    
+                    stack.push(i);
+                    
+                    break;
+                } else if (height[index] == height[i]) {
+                    right[i] = i;
+                    break;
+                }
+                
+                else{
+                    
+                    stack.pop();
+                    continue;
+                }
+            }
+            
+            if (stack.isEmpty()) {
+                right[i] = right.length - 1;
+                stack.push(i);
+                
             }
             
         }
         
-        return minWindows;
+        int maxArea = 0;
+        for (int i = 0; i < left.length; i++) {
+
+            maxArea = Math.max(maxArea, (right[i] + 1 - left[i]) * height[i]);
+            System.out.println(i + " " + left[i] + " " +right[i] + " " + maxArea);
+        }
+        
+        return maxArea;
     }
 }
