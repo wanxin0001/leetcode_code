@@ -1,4 +1,20 @@
-import java.util.*;
+/*
+Reverse Nodes in k-Group Total Accepted: 14322 Total Submissions: 57547 My Submissions
+Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
+
+If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
+
+You may not alter the values in the nodes, only nodes itself may be changed.
+
+Only constant memory is allowed.
+
+For example,
+Given this linked list: 1->2->3->4->5
+
+For k = 2, you should return: 2->1->4->3->5
+
+For k = 3, you should return: 3->2->1->4->5
+*/
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -11,28 +27,6 @@ import java.util.*;
  * }
  */
 public class Solution {
-    private static class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int x) {
-          val = x;
-          next = null;
-      }
-     }
-
-     public static void main(String[] str) {
-        ListNode s1 = new ListNode(1);
-        ListNode s2 = new ListNode(2);
-        ListNode s3 = new ListNode(3);
-        ListNode s4 = new ListNode(4);
-        ListNode s5 = new ListNode(5);
-        s1.next = s2;
-        s2.next = s3;
-        s3.next = s4;
-        s4.next = s5;
-        Solution obj = new Solution();
-        obj.reverseKGroup(s1, 2);
-     }
     public ListNode reverseKGroup(ListNode head, int k) {
         if (head == null || head.next == null || k <= 1) {
             return head;
@@ -46,10 +40,7 @@ public class Solution {
         ListNode current = dummy;
         ListNode cur = head;
         for (int i = 0; i < size / k ; i++) {
-
             ArrayList<ListNode> result = reverseK(cur, k);
-            System.out.println("333" + result.get(0).val + " " + result.get(1).val + " " + result.get(2).val);
-            //System.out.println(reverseK(cur, k).get(0).val + " " + reverseK(cur, k).get(1).val + " " + reverseK(cur, k).get(2).val);
             current.next = result.get(1);
             current = result.get(0);
             cur = result.get(2);
@@ -61,7 +52,6 @@ public class Solution {
         return dummy.next;
     }
     private ArrayList<ListNode> reverseK(ListNode head, int k) {
-        System.out.println("11");
         ArrayList<ListNode> result = new ArrayList<ListNode>();
         ListNode prev = null;
         result.add(head);
@@ -75,7 +65,6 @@ public class Solution {
         }
         result.add(prev);
         result.add(head);
-        System.out.println("222" + result.get(0).val + " " + result.get(1).val + " " + result.get(2).val);
         return result;
         
     }
