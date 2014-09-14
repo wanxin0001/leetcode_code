@@ -1,12 +1,26 @@
+/*
+Regular Expression Matching Total Accepted: 16861 Total Submissions: 84217 My Submissions
+Implement regular expression matching with support for '.' and '*'.
+
+'.' Matches any single character.
+'*' Matches zero or more of the preceding element.
+
+The matching should cover the entire input string (not partial).
+
+The function prototype should be:
+bool isMatch(const char *s, const char *p)
+
+Some examples:
+isMatch("aa","a") → false
+isMatch("aa","aa") → true
+isMatch("aaa","aa") → false
+isMatch("aa", "a*") → true
+isMatch("aa", ".*") → true
+isMatch("ab", ".*") → true
+isMatch("aab", "c*a*b") → true
+*/
+
 public class Solution {
-    public static void main(String[] str1) {
-        Solution str = new Solution();
-        if (str.isMatch("aab", "c*a*b")) {
-            System.out.println("true");
-        } else {
-            System.out.println("False");
-        }
-    }
     public boolean isMatch(String s, String p) {
         int i = 0, j = 0;
         
